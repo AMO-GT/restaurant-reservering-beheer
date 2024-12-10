@@ -3,7 +3,6 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\OrderController;
-use App\Http\Controllers\OrderController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -23,9 +22,6 @@ Route::middleware('auth')->group(function () {
         return view('bediening');
     })->name('bediening');
 });
-
-Route::get('/kitchen/dashboard', [OrderController::class, 'index'])->name('kitchen.dashboard');
-Route::post('/kitchen/order/{order}/status', [OrderController::class, 'updateStatus'])->name('order.update.status');
 
 Route::get('/kitchen/dashboard', [OrderController::class, 'index'])->name('kitchen.dashboard');
 Route::post('/kitchen/order/{order}/status', [OrderController::class, 'updateStatus'])->name('order.update.status');
