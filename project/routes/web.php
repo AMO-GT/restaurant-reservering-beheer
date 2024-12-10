@@ -24,6 +24,6 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::get('/kitchen/dashboard', [OrderController::class, 'index'])->name('kitchen.dashboard');
-Route::post('/kitchen/order/{order}/status', [OrderController::class, 'updateStatus'])->name('order.update.status');
+Route::post('/order/{order}/status', [OrderController::class, 'updateStatus'])->name('order.update.status');
 
 require __DIR__ . '/auth.php';

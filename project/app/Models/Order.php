@@ -10,14 +10,9 @@ class Order extends Model
 {
     use HasFactory;
 
-    /**
-     * De velden die mass assignment toestaan.
-     *
-     * @var array
-     */
     protected $fillable = [
         'table_number',
-        'item_name',
-        'quantity',
+        'order_details',
+        'status',
     ];
 }

@@ -1,52 +1,39 @@
 <!-- resources/views/kitchen/dashboard.blade.php -->
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Keuken Dashboard</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body>
-    <div class="container mt-5">
-        <h1>Keuken Dashboard</h1>
+<x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{ __('Keuken Dashboard') }}
+        </h2>
+    </x-slot>
 
-        @if(session('success'))
-            <div class="alert alert-success">{{ session('success') }}</div>
-        @endif
+    <div class="py-12">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="p-6 text-gray-900">
+                    <h3 class="text-lg font-semibold">Bestellingen</h3>
 
-        <table class="table table-bordered mt-4">
-            <thead>
-                <tr>
-                    <th>Bestelling ID</th>
-                    <th>Tafelnummer</th>
-                    <th>Details</th>
-                    <th>Status</th>
-                    <th>Acties</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach($orders as $order)
-                    <tr>
-                        <td>{{ $order->id }}</td>
-                        <td>{{ $order->table_number }}</td>
-                        <td>{{ $order->order_details }}</td>
-                        <td>{{ $order->status }}</td>
-                        <td>
-                            <form action="{{ route('order.update.status', $order->id) }}" method="POST">
-                                @csrf
-                                <select name="status" class="form-select" onchange="this.form.submit()">
-                                    <option value="pending" {{ $order->status == 'pending' ? 'selected' : '' }}>In behandeling</option>
-                                    <option value="preparing" {{ $order->status == 'preparing' ? 'selected' : '' }}>In voorbereiding</option>
-                                    <option value="ready" {{ $order->status == 'ready' ? 'selected' : '' }}>Klaar</option>
-                                    <option value="served" {{ $order->status == 'served' ? 'selected' : '' }}>Geserveerd</option>
-                                </select>
-                            </form>
-                        </td>
-                    </tr>
-                @endforeach
-            </tbody>
-        </table>
+                    <table class="table-auto w-full mt-4">
+                        <thead>
+                            <tr>
+                                <th class="px-4 py-2">ID</th>
+                                <th class="px-4 py-2">Tafelnummer</th>
+                                <th class="px-4 py-2">Details</th>
+                                <th class="px-4 py-2">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($orders as $order)
+                                <tr>
+                                    <td class="border px-4 py-2">{{ $order->id }}</td>
+                                    <td class="border px-4 py-2">{{ $order->table_number }}</td>
+                                    <td class="border px-4 py-2">{{ $order->order_details }}</td>
+                                    <td class="border px-4 py-2">{{ ucfirst($order->status) }}</td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
-</body>
-</html>
+</x-app-layout>
