@@ -48,4 +48,3 @@ class OrderController extends Controller
         return redirect()->route('bediening')->with('success', 'Bestelling is opgeslagen!');
     }
 }
-
