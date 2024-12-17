@@ -5,6 +5,7 @@ use App\Http\Controllers\RestaurantController;
 use App\Http\Controllers\ReservationController;
 use Illuminate\Support\Facades\Route;
 
+// <=======================================AHMAD================================================>
 // Maak de restaurantpagina de standaard root route
 Route::get('/', [RestaurantController::class, 'index'])->name('restaurant');
 
@@ -15,7 +16,7 @@ Route::post('/reservations', [ReservationController::class, 'store'])->name('res
 require __DIR__.'/auth.php';
 
 // Dashboard voor ingelogde gebruikers
-Route::get('/dashboard', function () {  
+Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
@@ -30,3 +31,4 @@ Route::middleware('auth')->group(function () {
 //Route::get('/welcome', function () {
 //    return view('welcome');
 //})->name('welcome');
+// <=======================================AHMAD================================================>
