@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Route;
 // Maak de restaurantpagina de standaard root route
 Route::get('/', [RestaurantController::class, 'index'])->name('restaurant');
 
-// reserveer widget
+// Route om een reservering op te slaan
 Route::post('/reservations', [ReservationController::class, 'store'])->name('reservations.store');
 
 // Loginpagina (standaard van Laravel Breeze)

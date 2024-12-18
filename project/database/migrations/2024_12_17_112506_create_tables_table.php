@@ -11,15 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('reservations', function (Blueprint $table) {
+        Schema::create('tables', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('email');
-            $table->integer('persons');
-            $table->date('date');
-            $table->time('time');
+            $table->string('table_number')->unique(); // Tafelnummer
+            $table->integer('capacity'); // Aantal personen dat aan tafel kan
+            $table->boolean('is_available')->default(true); // Beschikbaarheid van tafel
             $table->timestamps();
         });
+
     }
 
     /**
@@ -27,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('reservations');
+        Schema::dropIfExists('tables');
     }
 };

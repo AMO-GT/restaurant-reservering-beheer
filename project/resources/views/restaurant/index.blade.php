@@ -7,12 +7,12 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        /* Vaste Reserveer Knop */
+        /* Vaste Reserveer Knop */  
         .reserveer-knop {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            z-index: 1050;
+            position: fixed;            /* Zet de knop op een vaste positie op het scherm */
+            bottom: 20px;              /* 20px vanaf de onderkant van het scherm */
+            right: 20px;               /* 20px vanaf de rechterkant van het scherm */ 
+            z-index: 1050;             /* Zorgt dat de knop boven andere elementen zweeft */
         }
 
         /* Widget Container */
@@ -46,6 +46,20 @@
     </style>
 </head>
 <body>
+
+<!-- Bevestigings- en foutmeldingen bovenaan de pagina -->
+@if (session('success'))
+    <div class="alert alert-success text-center" role="alert">
+        {{ session('success') }}
+    </div>
+@endif
+
+@if (session('error'))
+    <div class="alert alert-danger text-center" role="alert">
+        {{ session('error') }}
+    </div>
+@endif
+
 <!-- Pagina Inhoud -->
 <div class="container mt-5">
     <h1 class="text-center">Welkom bij het Restaurant</h1>
@@ -101,7 +115,18 @@
             </div>
             <div class="mb-3">
                 <label for="time" class="form-label">Tijd</label>
-                <input type="time" id="time" name="time" class="form-control" required>
+                <select id="time" name="time" class="form-control" required>
+                    <option value="">Selecteer een tijd</option>
+                    @php
+                        $start = strtotime('12:00');
+                        $end = strtotime('22:00');
+                        $interval = 15 * 60; // 15 minuten in seconden
+
+                        for ($time = $start; $time <= $end; $time += $interval) {
+                            echo '<option value="' . date('H:i', $time) . '">' . date('H:i', $time) . '</option>';
+                        }
+                    @endphp
+                </select>
             </div>
             <button type="submit" class="btn btn-danger w-100">Reserveer Nu</button>
         </form>
