@@ -19,15 +19,20 @@ class ReservationController extends Controller
             'time' => 'required',
         ]);
 
-        // Zoek een beschikbare tafel
-        $table = Table::where('is_available', true)
+        // Zoek een beschikbare tafel die nog niet gereserveerd is voor de gekozen datum en tijd
+        $table = Table::whereDoesntHave('reservations', function($query) use ($request) {
+                $query->where('date', $request->date)
+                      ->where('time', $request->time);
+            })
             ->where('capacity', '>=', $request->persons)
-            ->orderBy('capacity') // Kies de kleinste tafel die past
+            ->orderBy('capacity')
             ->first();
 
         // Controleer of er een tafel beschikbaar is
         if (!$table) {
-            return back()->with('error', 'Er zijn momenteel geen tafels beschikbaar voor het geselecteerde aantal personen.');
+            return back()
+                ->withInput()
+                ->with('error', 'Er zijn momenteel geen tafels beschikbaar voor ' . $request->persons . ' personen op de gekozen datum en tijd.');
         }
 
         // Maak de reservering en wijs de tafel toe
