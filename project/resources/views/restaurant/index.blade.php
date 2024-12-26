@@ -43,27 +43,231 @@
         .widget-body {
             padding: 15px;
         }
+
+        /* Alleen essentiële custom styles */
+        .hero-section {
+            position: relative;
+            height: 100vh;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .hero-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        .menu-image {
+            height: 250px;
+            object-fit: cover;
+        }
+
+        .navbar-logo {
+            height: 100px;
+            width: auto;
+            /* margin-right: 100px; */
+        }
+
+        .hero-logo {
+            width: 5px;
+            height: auto;
+            margin-bottom: 2rem;
+        }
     </style>
 </head>
 <body>
 
-<!-- Bevestigings- en foutmeldingen bovenaan de pagina -->
-@if (session('success'))
-    <div class="alert alert-success text-center" role="alert">
-        {{ session('success') }}
+<!-- Optie 2: Vaste navigatiebalk bovenaan -->
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top bg-transparent">
+    <div class="container">
+        <a class="navbar-brand" href="/">
+            <img src="{{ asset('images/logo.png') }}" alt="Restaurant Logo" class="navbar-logo">
+        </a>
+        <!-- Optioneel: navigatie menu -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="#menu">Menu</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#over-ons">Over Ons</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#contact">Contact</a>
+                </li>
+            </ul>
+        </div>
     </div>
-@endif
+</nav>
 
-@if (session('error'))
-    <div class="alert alert-danger text-center" role="alert">
-        {{ session('error') }}
+
+<!-- Hero Sectie -->
+<div class="hero-section">
+    <video class="hero-video" autoplay muted loop playsinline>
+        <source src="{{ asset('videos/restaurant-bg.mp4') }}" type="video/mp4">
+    </video>
+    <div class="hero-overlay d-flex align-items-center justify-content-center text-white text-center">
+        <!-- Alerts toevoegen binnen de hero-overlay -->
+        @if (session('success'))
+            <div class="alert alert-success text-center position-absolute top-0 start-50 translate-middle-x mt-4 w-45" role="alert" id="success-alert">
+                {{ session('success') }}
+            </div>
+        @endif
+
+        @if (session('error'))
+            <div class="alert alert-danger text-center position-absolute top-0 start-50 translate-middle-x mt-4 w-45" role="alert" id="error-alert">
+                {{ session('error') }}
+            </div>
+        @endif
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                setTimeout(function() {
+                    var successAlert = document.getElementById('success-alert');
+                    if (successAlert) {
+                        successAlert.style.display = 'none';
+                    }
+                    var errorAlert = document.getElementById('error-alert');
+                    if (errorAlert) {
+                        errorAlert.style.display = 'none';
+                    }
+                }, 3000); // 5000 milliseconden = 5 seconden
+            });
+        </script>
+        
+        <div>
+            <h1 class="display-1 fw-bold mb-4">M'n moeder</h1>
+            <p class="lead fs-3">Een culinaire ervaring om nooit te vergeten</p>
+            <a href="#menu" class="btn btn-outline-light btn-lg mt-4">Ontdek ons menu</a>
+        </div>
     </div>
-@endif
+</div>
 
-<!-- Pagina Inhoud -->
-<div class="container mt-5">
-    <h1 class="text-center">Welkom bij het Restaurant</h1>
-    <p class="text-center">Geniet van onze heerlijke gerechten en reserveer nu!</p>
+<!-- Scrollbare Inhoud -->
+<div class="bg-white position-relative">
+    <!-- Menu Sectie -->
+    <section id="menu" class="py-5">
+        <div class="container">
+            <h2 class="display-4 text-center mb-5">Onze Specialiteiten</h2>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <img src="{{ asset('images/gerecht1.jpg') }}" class="card-img-top menu-image rounded-top" alt="Gerecht 1">
+                        <div class="card-body text-center">
+                            <h3 class="card-title h4">Gerecht Naam</h3>
+                            <p class="card-text text-muted">Beschrijving van het gerecht met de belangrijkste ingrediënten.</p>
+                            <p class="card-text fw-bold">€24,50</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <img src="{{ asset('images/gerecht2.jpg') }}" class="card-img-top menu-image rounded-top" alt="Gerecht 2">
+                        <div class="card-body text-center">
+                            <h3 class="card-title h4">Gerecht Naam</h3>
+                            <p class="card-text text-muted">Beschrijving van het gerecht met de belangrijkste ingrediënten.</p>
+                            <p class="card-text fw-bold">€22,50</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <img src="{{ asset('images/gerecht3.jpg') }}" class="card-img-top menu-image rounded-top" alt="Gerecht 3">
+                        <div class="card-body text-center">
+                            <h3 class="card-title h4">Gerecht Naam</h3>
+                            <p class="card-text text-muted">Beschrijving van het gerecht met de belangrijkste ingrediënten.</p>
+                            <p class="card-text fw-bold">€26,50</p>
+                        </div>
+                    </div>
+                </div>
+        
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Over Ons Sectie -->
+    <section class="py-5 bg-light">
+        <div class="container">
+            <a name="over-ons"></a>
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <img src="{{ asset('images/gerecht4.jpg') }}" class="img-fluid rounded shadow" alt="Restaurant interieur">
+                </div>
+                <div class="col-lg-6">
+                    
+                    <h2 class="display-4 mb-4">Over Ons</h2>
+                    <p class="lead">Hier komt een uitgebreide beschrijving over het restaurant.</p>
+                    <p class="mb-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    <div class="row g-4 text-center">
+                        <div class="col-6">
+                            <div class="p-4 bg-white rounded shadow-sm">
+                                <h3 class="h2 mb-0">10+</h3>
+                                <p class="text-muted mb-0">Jaren ervaring</p>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="p-4 bg-white rounded shadow-sm">
+                                <h3 class="h2 mb-0">4.8</h3>
+                                <p class="text-muted mb-0">Gemiddelde score</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Sectie -->
+    <section class="py-5">
+        <a name="contact"></a>
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8 text-center">
+                    <h2 class="display-4 mb-4">Contact</h2>
+                    <div class="row g-4">
+                        <div class="col-md-4">
+                            <div class="p-4 bg-light rounded">
+                                <i class="bi bi-geo-alt fs-1 text-danger mb-3"></i>
+                                <h3 class="h5">Adres</h3>
+                                <p class="mb-0">Restaurantstraat 123<br>1234 AB Amsterdam</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="p-4 bg-light rounded">
+                                <i class="bi bi-telephone fs-1 text-danger mb-3"></i>
+                                <h3 class="h5">Telefoon</h3>
+                                <p class="mb-0">020-1234567</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="p-4 bg-light rounded">
+                                <i class="bi bi-envelope fs-1 text-danger mb-3"></i>
+                                <h3 class="h5">E-mail</h3>
+                                <p class="mb-0">info@mijnmoeder.nl</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 </div>
 
 <!-- Vaste Reserveer Knop -->
@@ -147,5 +351,37 @@
         document.getElementById('reserveer-widget').classList.remove('open');
     });
 </script>
+
+
+
+<!-- Optie 3: Footer logo -->
+<footer class="bg-dark text-white py-5 mt-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 text-center text-md-start mb-4 mb-md-0">
+                <img src="{{ asset('images/logo.png') }}" alt="Restaurant Logo" class="navbar-logo mb-3">
+                <p>© 2024 Restaurant Naam. Alle rechten voorbehouden.</p>
+            </div>
+            <div class="col-md-4 text-center text-md-start mb-4 mb-md-0">
+                <h5 class="text-uppercase mb-3 text-white">Openingstijden</h5>
+                <ul class="list-unstyled text-white">
+                    <li><strong>Maandag:</strong> <span>12:00 - 22:00</span></li>
+                    <li><strong>Dinsdag:</strong> <span>12:00 - 22:00</span></li>
+                    <li><strong>Woensdag:</strong> <span>12:00 - 22:00</span></li>
+                    <li><strong>Donderdag:</strong> <span>12:00 - 22:00</span></li>
+                    <li><strong>Vrijdag:</strong> <span>12:00 - 22:30</span></li>
+                    <li><strong>Zaterdag:</strong> <span>12:00 - 22:30</span></li>
+                    <li><strong>Zondag:</strong> <span>12:00 - 22:30</span></li>
+                </ul>
+            </div>
+            <div class="col-md-4 text-center text-md-start">
+                <h5 class="text-uppercase mb-3 text-white">Afhalen & Bezorgen</h5>
+                <ul class="list-unstyled text-white">
+                    <li><strong>Elke dag:</strong> <span>14:00 - 21:00</span></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
 </body>
 </html>
