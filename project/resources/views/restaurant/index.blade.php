@@ -208,13 +208,18 @@
             <a name="over-ons"></a>
             <div class="row align-items-center">
                 <div class="col-lg-6">
-                    <img src="{{ asset('images/gerecht4.jpg') }}" class="img-fluid rounded shadow" alt="Restaurant interieur">
+                    <img src="{{ asset('images/over-ons.jpg') }}" class="img-fluid rounded shadow" alt="Restaurant interieur">
                 </div>
                 <div class="col-lg-6">
                     
                     <h2 class="display-4 mb-4">Over Ons</h2>
                     <p class="lead">Hier komt een uitgebreide beschrijving over het restaurant.</p>
-                    <p class="mb-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    <p class="mb-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                    </p>
                     <div class="row g-4 text-center">
                         <div class="col-6">
                             <div class="p-4 bg-white rounded shadow-sm">
