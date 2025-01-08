@@ -163,16 +163,14 @@
             font-size: 0.9em;
             color: #666;
         }
+
+        .drinks-container {
+            overflow: hidden;
+        }
     </style>
 </head>
-<body>
-    <nav class="navbar navbar-dark mb-4">
-        <div class="container">
-            <span class="navbar-brand">
-                <i class="fas fa-utensils me-2"></i>Restaurant Keuken Dashboard
-            </span>
-        </div>
-    </nav>
+<body> 
+
 
     <div class="container">
         <!-- Formulier voor nieuwe bestelling -->
@@ -585,6 +583,21 @@
         
         window.startOrderTimer = startOrderTimer;
     });
+
+    function selectDrink(drink) {
+        alert(drink + ' geselecteerd!');
+        // Voeg logica toe om de selectie op te slaan of te verwerken
+    }
+
+    function scrollDrinks(direction) {
+        const container = document.querySelector('.row.flex-nowrap');
+        const scrollAmount = container.clientWidth / 2; // Scroll de halve breedte van de container
+        if (direction === 'left') {
+            container.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+        } else if (direction === 'right') {
+            container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+        }
+    }
     </script>
 </body>
 </html>

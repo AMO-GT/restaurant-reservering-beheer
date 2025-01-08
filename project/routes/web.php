@@ -5,6 +5,7 @@ use App\Http\Controllers\RestaurantController;
 use App\Http\Controllers\ReservationController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\BarController;
 
 // Maak de restaurantpagina de standaard root route
 Route::get('/', [RestaurantController::class, 'index'])->name('restaurant');
@@ -59,3 +60,5 @@ Route::post('/orders', [OrderController::class, 'store'])->name('kitchen.orders.
 Route::get('/kitchen', [OrderController::class, 'index'])->name('kitchen.index');
 Route::patch('/orders/{order}/status', [OrderController::class, 'updateStatus'])->name('kitchen.orders.updateStatus');
 Route::delete('/orders/{order}', [OrderController::class, 'destroy'])->name('kitchen.orders.destroy');
+
+Route::get('/bar', [BarController::class, 'index'])->name('bar.index');
