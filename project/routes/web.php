@@ -3,9 +3,21 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RestaurantController;
 use App\Http\Controllers\ReservationController;
+use App\Http\Controllers\ReservationCancelController;
 use Illuminate\Support\Facades\Route;
 
 // <=======================================AHMAD================================================>
+
+// Contact pagina
+
+Route::get('/contact', [ReservationCancelController::class, 'index'])->name('contact');
+Route::post('/contact', [ReservationCancelController::class, 'submit'])->name('contact.submit');
+
+
+Route::get('/contact-test', function() {
+    return 'Test route werkt!';
+});
+
 // Maak de restaurantpagina de standaard root route
 Route::get('/', [RestaurantController::class, 'index'])->name('restaurant');
 

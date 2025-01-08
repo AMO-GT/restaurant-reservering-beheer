@@ -280,6 +280,7 @@
     Reserveren
 </button>
 
+
 <!-- Reserveringswidget -->
 <div id="reserveer-widget">
     <div class="widget-header">
@@ -291,6 +292,11 @@
         @if (session('success'))
             <div class="alert alert-success">{{ session('success') }}</div>
         @endif
+
+        <div class="mb-3 text-center">
+            <p>Wilt u uw reservering wijzigen of annuleren?</p>
+            <a href="/contact" class="btn btn-outline-danger">Klik hier</a>
+        </div>
 
         <!-- Foutmeldingen -->
         @if ($errors->any())
@@ -339,6 +345,29 @@
             </div>
             <button type="submit" class="btn btn-danger w-100">Reserveer Nu</button>
         </form>
+    </div>
+</div>
+
+<!-- QR Code Sectie (voor de footer) -->
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6 text-center">
+            <h3>Scan de QR-code voor ons menu</h3>
+            <p class="mb-4">Bekijk snel en gemakkelijk onze menukaart op je telefoon</p>
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://www.fifty50tilburg.nl/wp-content/uploads/2021/06/Menukaart-Fifty50-new.pdf" 
+                 alt="Menu QR Code" 
+                 class="img-fluid"
+                 style="max-width: 200px;">
+            
+            <!-- Download knop toegevoegd -->
+            <div class="mt-4">
+                <a href="https://www.fifty50tilburg.nl/wp-content/uploads/2021/06/Menukaart-Fifty50-new.pdf" 
+                   class="btn btn-primary" 
+                   download>
+                    <i class="fas fa-download me-2"></i>Download Menu PDF
+                </a>
+            </div>
+        </div>
     </div>
 </div>
 
