@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RestaurantController;
 use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\ReservationCancelController;
+use App\Http\Controllers\BezoekersaantallenController;
 use Illuminate\Support\Facades\Route;
 
 // <=======================================AHMAD================================================>
@@ -38,6 +39,18 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+
+// ... existing code ...
+
+Route::get('/beheerder', function () {
+    $predictions = \App\Models\Prediction::orderBy('datum')->get();
+    return view('admin.beheer', compact('predictions'));
+})->middleware(['auth', 'verified'])->name('admin.beheer');
+
+Route::get('/bezoekersaantallen', [BezoekersaantallenController::class, 'index'])->name('bezoekersaantallen.index');
+
+// ... existing code ...
 
 // Alternatieve route naar de originele welcome-pagina
 //Route::get('/welcome', function () {
