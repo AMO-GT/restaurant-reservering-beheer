@@ -169,10 +169,10 @@
         }
     </style>
 </head>
-<body> 
-
-
-    <div class="container">
+<body>
+    @include('layouts.nav')
+    
+    <div class="container mt-4">
         <!-- Formulier voor nieuwe bestelling -->
         <div class="card mb-4">
             <div class="card-header">

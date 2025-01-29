@@ -2,29 +2,47 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Order;
+use App\Models\Drink;
+use Illuminate\Http\Request;
 
 class BarController extends Controller
 {
-    public function startBon(Request $request)
-    {
-        // Logica om een nieuwe bon te starten
-        $customerName = $request->input('customer_name');
-        // Hier kun je de bon opslaan in de database of verdere verwerking doen
-
-        return redirect()->back()->with('success', 'Bon gestart voor ' . $customerName);
-    }
-
     public function index()
     {
-        $orders = Order::orderByRaw("CASE 
-            WHEN status = 'In behandeling' THEN 1 
-            ELSE 2 
-            END")
+        $orders = Order::where('status', 'Klaar')
             ->orderBy('created_at', 'desc')
             ->get();
         
-        return view('kitchen.bar', compact('orders'));
+        $popularDrinks = Drink::where('order_count', '>', 0)
+            ->orderBy('order_count', 'desc')
+            ->take(5)
+            ->get();
+
+        $drinks = Drink::orderBy('category')
+            ->orderBy('name')
+            ->get()
+            ->groupBy('category');
+        
+        return view('kitchen.bar', compact('orders', 'popularDrinks', 'drinks'));
+    }
+
+    public function toggleAvailability($id)
+    {
+        $drink = Drink::findOrFail($id);
+        $drink->is_available = !$drink->is_available;
+        $drink->save();
+
+        return redirect()->back()->with('success', 
+            $drink->is_available 
+                ? $drink->name . ' is nu beschikbaar.' 
+                : $drink->name . ' is nu niet beschikbaar.');
+    }
+
+    public function updateOrderCount($id)
+    {
+        $drink = Drink::findOrFail($id);
+        $drink->order_count++;
+        $drink->save();
     }
 } 

@@ -6,6 +6,7 @@ use App\Http\Controllers\ReservationController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\BarController;
+use App\Http\Controllers\KassaController;
 
 // Maak de restaurantpagina de standaard root route
 Route::get('/', [RestaurantController::class, 'index'])->name('restaurant');
@@ -60,5 +61,14 @@ Route::post('/orders', [OrderController::class, 'store'])->name('kitchen.orders.
 Route::get('/kitchen', [OrderController::class, 'index'])->name('kitchen.index');
 Route::patch('/orders/{order}/status', [OrderController::class, 'updateStatus'])->name('kitchen.orders.updateStatus');
 Route::delete('/orders/{order}', [OrderController::class, 'destroy'])->name('kitchen.orders.destroy');
+Route::patch('/orders/{order}/update-items', [OrderController::class, 'updateItems'])->name('orders.updateItems');
+Route::delete('/orders/{order}/remove-item', [OrderController::class, 'removeItem'])->name('orders.removeItem');
+Route::patch('/orders/{order}/mark-for-payment', [OrderController::class, 'markForPayment'])->name('orders.markForPayment');
+Route::patch('/orders/{order}/pay', [OrderController::class, 'markAsPaid'])->name('orders.markAsPaid');
 
 Route::get('/bar', [BarController::class, 'index'])->name('bar.index');
+Route::get('/kassa', [KassaController::class, 'index'])->name('kassa.index');
+Route::get('/kassa/geschiedenis', [KassaController::class, 'history'])->name('kassa.history');
+
+Route::patch('/drinks/{drink}/toggle-availability', [BarController::class, 'toggleAvailability'])->name('drinks.toggleAvailability');
+Route::post('/drinks/{drink}/update-count', [BarController::class, 'updateOrderCount'])->name('drinks.updateCount');
