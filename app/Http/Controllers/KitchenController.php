@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
+use App\Models\Dish;
 use App\Models\Drink;
 use Illuminate\Http\Request;
 
@@ -17,6 +18,19 @@ class KitchenController extends Controller
             ->orderBy('created_at', 'desc')
             ->get();
 
+        // Haal de top 5 populaire gerechten op
+        $popularDishes = Dish::where('order_count', '>', 0)
+            ->orderBy('order_count', 'desc')
+            ->take(5)
+            ->get();
+
+        // Haal alle gerechten op, gegroepeerd per categorie
+        $dishes = Dish::orderBy('category')
+            ->orderBy('name')
+            ->get()
+            ->groupBy('category');
+
+        // Haal de populaire drankjes op
         $popularDrinks = Drink::where('order_count', '>', 0)
             ->orderBy('order_count', 'desc')
             ->take(5)
@@ -27,7 +41,7 @@ class KitchenController extends Controller
             ->get()
             ->groupBy('category');
         
-        return view('kitchen.index', compact('orders', 'popularDrinks', 'drinks'));
+        return view('kitchen.index', compact('orders', 'popularDishes', 'dishes', 'popularDrinks', 'drinks'));
     }
 
     public function store(Request $request)
@@ -50,15 +64,15 @@ class KitchenController extends Controller
         return redirect()->back()->with('success', 'Status bijgewerkt!');
     }
 
-    public function toggleDrinkAvailability($id)
+    public function toggleDishAvailability($id)
     {
-        $drink = Drink::findOrFail($id);
-        $drink->is_available = !$drink->is_available;
-        $drink->save();
+        $dish = Dish::findOrFail($id);
+        $dish->is_available = !$dish->is_available;
+        $dish->save();
 
         return redirect()->back()->with('success', 
-            $drink->is_available 
-                ? $drink->name . ' is nu beschikbaar.' 
-                : $drink->name . ' is nu niet beschikbaar.');
+            $dish->is_available 
+                ? $dish->name . ' is nu beschikbaar.' 
+                : $dish->name . ' is nu niet beschikbaar.');
     }
-}
+} 
