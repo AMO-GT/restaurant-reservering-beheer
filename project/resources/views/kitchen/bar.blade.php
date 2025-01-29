@@ -194,7 +194,7 @@
                                             <i class="fas fa-plus me-2"></i>Voeg Dranken Toe
                                         </button>
                                     </form>
-                                    
+
                                     <form action="{{ route('orders.markForPayment', $order->id) }}" method="POST" class="mt-3">
                                         @csrf
                                         @method('PATCH')
